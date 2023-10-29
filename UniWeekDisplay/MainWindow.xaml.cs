@@ -120,33 +120,14 @@ namespace UniWeekDisplay
                     // You now have the selected integer value in the selectedInt variable.
                     // You can use it as needed.
                     //System.Windows.MessageBox.Show($"Selected starting date of semester is: {selectedInt} of Sept");
-                    DateTime currentDateTime = DateTime.Now;
-                    DateTime IsMonday = new DateTime(currentDateTime.Year, selectedMonth_int, selectedInt);
-                    DateTime weekofsemester = new DateTime(currentDateTime.Year, selectedMonth_int, selectedInt);
-                    TimeSpan timePassed = currentDateTime - weekofsemester;
-                    int weeksPassed = ((int)timePassed.TotalDays / 7);
-                    if (IsMonday.DayOfWeek == DayOfWeek.Monday)
-                    {
-                        error_box.Text = "";
-                       
-                        if (weeksPassed > 13)
-                        {
-                            weeksPassed = 13;
-                            week.Text = weeksPassed.ToString();
-
-                        }
-                        else
-                        {
-                            week.Text = weeksPassed.ToString();
-                        }
-                    }
-                    else
-                    {
-                        week.Text = "X";
-                        error_box.Text = "The specified date is not a Monday. Please select start of semester as Monday";
-                    }
-
-
+                    selectedMonth = Properties.Settings.Default.SelectedMonth;
+                    selectedMonth_int = Properties.Settings.Default.SelectedMonth_int;
+                    DateTime CurrentDate = DateTime.Now;
+                    DateTime SelectedDate = new DateTime(CurrentDate.Year, selectedMonth_int, selectedInt);
+                    error_box.Text = selectedMonth.ToString();
+                    TimeSpan timeDifference = CurrentDate-SelectedDate;
+                    int weeksPassed = (int)Math.Floor((timeDifference.TotalDays / 7)+1);
+                    week.Text = weeksPassed.ToString();
 
                     Properties.Settings.Default.weeksPassed = weeksPassed;
                     Properties.Settings.Default.SelectedInt = selectedInt;
@@ -209,32 +190,18 @@ namespace UniWeekDisplay
                         break;
                 
                 }
-                DateTime currentDateTime = DateTime.Now;
-                DateTime IsMonday = new DateTime(currentDateTime.Year, selectedMonth_int, selectedInt);
-                DateTime weekofsemester = new DateTime(currentDateTime.Year, selectedMonth_int, selectedInt);
-                TimeSpan timePassed = currentDateTime - weekofsemester;
-                int weeksPassed = ((int)timePassed.TotalDays / 7) + 1;
-                if (IsMonday.DayOfWeek == DayOfWeek.Monday)
-                {
-                    error_box.Text = "";
-                    
-                    if (weeksPassed > 12)
-                    {
-                        weeksPassed = 13;
-                        week.Text = weeksPassed.ToString();
+                selectedInt = Properties.Settings.Default.SelectedInt;
+                DateTime CurrentDate = DateTime.Now;
+                DateTime SelectedDate = new DateTime(CurrentDate.Year, selectedMonth_int, selectedInt);
+                error_box.Text = selectedMonth.ToString();
+                TimeSpan timeDifference = CurrentDate - SelectedDate;
+                int weeksPassed = (int)Math.Floor((timeDifference.TotalDays / 7) + 1);
+                week.Text = weeksPassed.ToString();
 
-                    }
-                    else
-                    {
-                        week.Text = weeksPassed.ToString();
-                    }
-
-                }
-                else
-                {
-                    week.Text = "X";
-                    error_box.Text = "The specified date is not a Monday. Please select start of semester as Monday";
-                }
+                Properties.Settings.Default.weeksPassed = weeksPassed;
+                Properties.Settings.Default.SelectedInt = selectedInt;
+                Properties.Settings.Default.Save();
+                //error_box.Text = selectedMonth_int.ToString();
                 Properties.Settings.Default.weeksPassed = weeksPassed;
                 Properties.Settings.Default.SelectedMonth = selectedMonth;
                 Properties.Settings.Default.SelectedMonth_int = selectedMonth_int;
