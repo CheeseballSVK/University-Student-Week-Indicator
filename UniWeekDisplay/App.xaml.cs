@@ -24,19 +24,14 @@ namespace UniWeekDisplay
 
             MainWindow MainWindow = new MainWindow();
             MainWindow.Show();
-            _notifyIcon.Click += NotifyIcon_Click;
+            
 
 
             base.OnStartup(e);
            
         }
 
-        private void NotifyIcon_Click(object? sender, EventArgs e)
-        {
-            MainWindow.WindowState = WindowState.Normal;
-            MainWindow.Activate();
-        }
-
+        
         protected override void OnExit(ExitEventArgs e) {
             _notifyIcon.Dispose();
 

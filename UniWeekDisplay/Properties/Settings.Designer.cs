@@ -25,7 +25,7 @@ namespace UniWeekDisplay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int SelectedInt {
             get {
                 return ((int)(this["SelectedInt"]));
@@ -37,7 +37,7 @@ namespace UniWeekDisplay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("December")]
         public string SelectedMonth {
             get {
                 return ((string)(this["SelectedMonth"]));
@@ -49,7 +49,7 @@ namespace UniWeekDisplay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public int SelectedMonth_int {
             get {
                 return ((int)(this["SelectedMonth_int"]));
@@ -61,7 +61,7 @@ namespace UniWeekDisplay.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int weeksPassed {
             get {
                 return ((int)(this["weeksPassed"]));

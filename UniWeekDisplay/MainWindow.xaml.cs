@@ -31,10 +31,25 @@ namespace UniWeekDisplay
         private int selectedMonth_int;
         private int weeksPassed;
         private bool isblack;
+        private readonly System.Windows.Forms.NotifyIcon _notifyIcon;
 
         public MainWindow()
         {
             InitializeComponent();
+            
+            _notifyIcon = new System.Windows.Forms.NotifyIcon();
+            _notifyIcon.Click += NotifyIcon_Click;
+            var contextMenu = new ContextMenuStrip();
+            var exitMenuItem = new ToolStripMenuItem("Exit");
+            exitMenuItem.Click += (sender, e) =>
+            {
+                // Handle the "Exit" action here
+                // You can also perform any cleanup or save state here before exiting
+                System.Windows.Application.Current.Shutdown();
+            };
+            _notifyIcon.ContextMenuStrip = contextMenu;
+
+            contextMenu.Items.Add(exitMenuItem);
             ResizeMode = ResizeMode.NoResize;
             cb1.Items.Add(1);
             cb1.Items.Add(2);
@@ -66,7 +81,7 @@ namespace UniWeekDisplay
             cb1.Items.Add(28);
             cb1.Items.Add(29);
             cb1.Items.Add(30);
-            
+            cb1.SelectedIndex = 0;
             cb2.Items.Add("January");
             cb2.Items.Add("February");
             cb2.Items.Add("March");
@@ -79,15 +94,19 @@ namespace UniWeekDisplay
             cb2.Items.Add("October");
             cb2.Items.Add("November");
             cb2.Items.Add("December");
-
+            cb2.SelectedIndex = 0;
             //String semester = "ZS";
+
             selectedInt = Properties.Settings.Default.SelectedInt;
             selectedMonth = Properties.Settings.Default.SelectedMonth;
             selectedMonth_int = Properties.Settings.Default.SelectedMonth_int;
             weeksPassed = Properties.Settings.Default.weeksPassed;
             isblack = Properties.Settings.Default.isblack;
+            
             cb1.SelectedItem = selectedInt;
             cb2.SelectedItem = selectedMonth;
+
+            error_box.Text = "";
             week.Text = "X";
             week.Text = weeksPassed.ToString();
             if (isblack == true)
@@ -99,13 +118,18 @@ namespace UniWeekDisplay
                 black.IsChecked = false;
             }
 
-
-
-
-
-
         }
-
+        private void NotifyIcon_Click(object sender, EventArgs e)
+        {
+            // Show the main window when the NotifyIcon is clicked
+            this.Show();
+            this.WindowState = WindowState.Normal;
+        }
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;  // Prevent the window from closing
+            this.Hide();      // Hide the window instead
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             System.Windows.Controls.ComboBox comboBox = (System.Windows.Controls.ComboBox)sender;
@@ -120,15 +144,124 @@ namespace UniWeekDisplay
                     // You now have the selected integer value in the selectedInt variable.
                     // You can use it as needed.
                     //System.Windows.MessageBox.Show($"Selected starting date of semester is: {selectedInt} of Sept");
+                    
                     selectedMonth = Properties.Settings.Default.SelectedMonth;
                     selectedMonth_int = Properties.Settings.Default.SelectedMonth_int;
                     DateTime CurrentDate = DateTime.Now;
                     DateTime SelectedDate = new DateTime(CurrentDate.Year, selectedMonth_int, selectedInt);
-                    error_box.Text = selectedMonth.ToString();
                     TimeSpan timeDifference = CurrentDate-SelectedDate;
                     int weeksPassed = (int)Math.Floor((timeDifference.TotalDays / 7)+1);
+                    if (weeksPassed > 12)
+                    {
+                        weeksPassed = 13;
+                    }
                     week.Text = weeksPassed.ToString();
-
+                    isblack = Properties.Settings.Default.isblack;
+                    if (isblack == true && weeksPassed == 1)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/1.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 2)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/2.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 3)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/3.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 4)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/4.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 5)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/5.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 6)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/6.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 7)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/7.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 8)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/8.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 9)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/9.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 10)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/10.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 11)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/11.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 12)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/12.ico");
+                    }
+                    else if (isblack == true && weeksPassed == 13)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/13.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 1)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/1.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 2)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/2.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 3)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/3.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 4)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/4.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 5)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/5.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 6)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/6.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 7)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/7.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 8)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/8.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 9)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/9.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 10)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/10.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 11)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/11.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 12)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/12.ico");
+                    }
+                    else if (isblack == false && weeksPassed == 13)
+                    {
+                        _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/13.ico");
+                    }
+                    _notifyIcon.Visible = true;
                     Properties.Settings.Default.weeksPassed = weeksPassed;
                     Properties.Settings.Default.SelectedInt = selectedInt;
                     Properties.Settings.Default.Save();
@@ -193,14 +326,128 @@ namespace UniWeekDisplay
                 selectedInt = Properties.Settings.Default.SelectedInt;
                 DateTime CurrentDate = DateTime.Now;
                 DateTime SelectedDate = new DateTime(CurrentDate.Year, selectedMonth_int, selectedInt);
-                error_box.Text = selectedMonth.ToString();
                 TimeSpan timeDifference = CurrentDate - SelectedDate;
                 int weeksPassed = (int)Math.Floor((timeDifference.TotalDays / 7) + 1);
+                if (weeksPassed > 12)
+                {
+                    weeksPassed = 13;
+                }
                 week.Text = weeksPassed.ToString();
 
-                Properties.Settings.Default.weeksPassed = weeksPassed;
-                Properties.Settings.Default.SelectedInt = selectedInt;
-                Properties.Settings.Default.Save();
+                isblack = Properties.Settings.Default.isblack;
+                if (isblack == true && weeksPassed == 1)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/1.ico");
+                }
+                else if (isblack == true && weeksPassed == 2)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/2.ico");
+                }
+                else if (isblack == true && weeksPassed == 3)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/3.ico");
+                }
+                else if (isblack == true && weeksPassed == 4)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/4.ico");
+                }
+                else if (isblack == true && weeksPassed == 5)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/5.ico");
+                }
+                else if (isblack == true && weeksPassed == 6)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/6.ico");
+                }
+                else if (isblack == true && weeksPassed == 7)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/7.ico");
+                }
+                else if (isblack == true && weeksPassed == 8)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/8.ico");
+                }
+                else if (isblack == true && weeksPassed == 9)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/9.ico");
+                }
+                else if (isblack == true && weeksPassed == 10)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/10.ico");
+                }
+                else if (isblack == true && weeksPassed == 11)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/11.ico");
+                }
+                else if (isblack == true && weeksPassed == 12)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/12.ico");
+                }
+                else if (isblack == true && weeksPassed == 13)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/13.ico");
+                }
+                else if (isblack == false && weeksPassed == 1)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/1.ico");
+                }
+                else if (isblack == false && weeksPassed == 2)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/2.ico");
+                }
+                else if (isblack == false && weeksPassed == 3)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/3.ico");
+                }
+                else if (isblack == false && weeksPassed == 4)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/4.ico");
+                }
+                else if (isblack == false && weeksPassed == 5)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/5.ico");
+                }
+                else if (isblack == false && weeksPassed == 6)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/6.ico");
+                }
+                else if (isblack == false && weeksPassed == 7)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/7.ico");
+                }
+                else if (isblack == false && weeksPassed == 8)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/8.ico");
+                }
+                else if (isblack == false && weeksPassed == 9)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/9.ico");
+                }
+                else if (isblack == false && weeksPassed == 10)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/10.ico");
+                }
+                else if (isblack == false && weeksPassed == 11)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/11.ico");
+                }
+                else if (isblack == false && weeksPassed == 12)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/12.ico");
+                }
+                else if (isblack == false && weeksPassed == 13)
+                {
+                    _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/13.ico");
+                }
+                _notifyIcon.Visible = true;
+
+
+
+
+
+
+
+
                 //error_box.Text = selectedMonth_int.ToString();
                 Properties.Settings.Default.weeksPassed = weeksPassed;
                 Properties.Settings.Default.SelectedMonth = selectedMonth;
@@ -211,13 +458,225 @@ namespace UniWeekDisplay
         }
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            weeksPassed = Properties.Settings.Default.weeksPassed;
             isblack = true;
+            if (isblack == true && weeksPassed == 1)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/1.ico");
+            }
+            else if (isblack == true && weeksPassed == 2)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/2.ico");
+            }
+            else if (isblack == true && weeksPassed == 3)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/3.ico");
+            }
+            else if (isblack == true && weeksPassed == 4)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/4.ico");
+            }
+            else if (isblack == true && weeksPassed == 5)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/5.ico");
+            }
+            else if (isblack == true && weeksPassed == 6)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/6.ico");
+            }
+            else if (isblack == true && weeksPassed == 7)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/7.ico");
+            }
+            else if (isblack == true && weeksPassed == 8)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/8.ico");
+            }
+            else if (isblack == true && weeksPassed == 9)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/9.ico");
+            }
+            else if (isblack == true && weeksPassed == 10)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/10.ico");
+            }
+            else if (isblack == true && weeksPassed == 11)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/11.ico");
+            }
+            else if (isblack == true && weeksPassed == 12)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/12.ico");
+            }
+            else if (isblack == true && weeksPassed == 13)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/13.ico");
+            }
+            else if (isblack == false && weeksPassed == 1)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/1.ico");
+            }
+            else if (isblack == false && weeksPassed == 2)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/2.ico");
+            }
+            else if (isblack == false && weeksPassed == 3)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/3.ico");
+            }
+            else if (isblack == false && weeksPassed == 4)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/4.ico");
+            }
+            else if (isblack == false && weeksPassed == 5)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/5.ico");
+            }
+            else if (isblack == false && weeksPassed == 6)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/6.ico");
+            }
+            else if (isblack == false && weeksPassed == 7)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/7.ico");
+            }
+            else if (isblack == false && weeksPassed == 8)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/8.ico");
+            }
+            else if (isblack == false && weeksPassed == 9)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/9.ico");
+            }
+            else if (isblack == false && weeksPassed == 10)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/10.ico");
+            }
+            else if (isblack == false && weeksPassed == 11)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/11.ico");
+            }
+            else if (isblack == false && weeksPassed == 12)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/12.ico");
+            }
+            else if (isblack == false && weeksPassed == 13)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/13.ico");
+            }
+            _notifyIcon.Visible = true;
             Properties.Settings.Default.isblack = isblack;
             Properties.Settings.Default.Save();
         }
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
+            weeksPassed = Properties.Settings.Default.weeksPassed;
             isblack = false;
+            if (isblack == true && weeksPassed == 1)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/1.ico");
+            }
+            else if (isblack == true && weeksPassed == 2)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/2.ico");
+            }
+            else if (isblack == true && weeksPassed == 3)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/3.ico");
+            }
+            else if (isblack == true && weeksPassed == 4)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/4.ico");
+            }
+            else if (isblack == true && weeksPassed == 5)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/5.ico");
+            }
+            else if (isblack == true && weeksPassed == 6)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/6.ico");
+            }
+            else if (isblack == true && weeksPassed == 7)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/7.ico");
+            }
+            else if (isblack == true && weeksPassed == 8)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/8.ico");
+            }
+            else if (isblack == true && weeksPassed == 9)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/9.ico");
+            }
+            else if (isblack == true && weeksPassed == 10)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/10.ico");
+            }
+            else if (isblack == true && weeksPassed == 11)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/11.ico");
+            }
+            else if (isblack == true && weeksPassed == 12)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/12.ico");
+            }
+            else if (isblack == true && weeksPassed == 13)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/Black/13.ico");
+            }
+            else if (isblack == false && weeksPassed == 1)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/1.ico");
+            }
+            else if (isblack == false && weeksPassed == 2)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/2.ico");
+            }
+            else if (isblack == false && weeksPassed == 3)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/3.ico");
+            }
+            else if (isblack == false && weeksPassed == 4)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/4.ico");
+            }
+            else if (isblack == false && weeksPassed == 5)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/5.ico");
+            }
+            else if (isblack == false && weeksPassed == 6)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/6.ico");
+            }
+            else if (isblack == false && weeksPassed == 7)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/7.ico");
+            }
+            else if (isblack == false && weeksPassed == 8)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/8.ico");
+            }
+            else if (isblack == false && weeksPassed == 9)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/9.ico");
+            }
+            else if (isblack == false && weeksPassed == 10)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/10.ico");
+            }
+            else if (isblack == false && weeksPassed == 11)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/11.ico");
+            }
+            else if (isblack == false && weeksPassed == 12)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/12.ico");
+            }
+            else if (isblack == false && weeksPassed == 13)
+            {
+                _notifyIcon.Icon = new System.Drawing.Icon("Resources/White/13.ico");
+            }
+            _notifyIcon.Visible = true;
             Properties.Settings.Default.isblack = isblack;
             Properties.Settings.Default.Save();
         }

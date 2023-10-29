@@ -5,14 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniWeekDisplay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
+        Title="University Current Week Indicator" Height="500" Width="800"
+        Closing="MainWindow_Closing" Background="#FF100F0F">
     <Grid Height="484" VerticalAlignment="Bottom">
-        <TextBlock x:Name="Label_Of_Window" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="317" Height="87" FontSize="24" RenderTransformOrigin="0.5,0.5" Margin="178,340,0,0"><Run Text="University Current Week is:"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="week" HorizontalAlignment="Left" Margin="470,340,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="24" RenderTransformOrigin="0.488,0.549"/>
+        <TextBlock x:Name="Label_Of_Window" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" Height="87" FontSize="24" RenderTransformOrigin="0.5,0.5" Margin="145,340,0,0" FontFamily="Arial Rounded MT Bold" Foreground="White"><Run Text="University Current Week is:"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="week" HorizontalAlignment="Left" Margin="470,340,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" FontSize="24" RenderTransformOrigin="0.488,0.549" FontFamily="Arial Rounded MT Bold" Foreground="White"/>
         <ComboBox x:Name="cb1" HorizontalAlignment="Left" Margin="652,305,0,0" VerticalAlignment="Top" Width="86" SelectionChanged="ComboBox_SelectionChanged" RenderTransformOrigin="0.26,0.211" Height="35" FontSize="24"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="576" Height="60" FontSize="24" RenderTransformOrigin="0.5,0.5" Margin="90,303,0,0"><Run Text="Starting date of semester is set to be &#x9;       of :"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
-        <ComboBox x:Name="cb2" HorizontalAlignment="Left" Margin="484,305,0,0" VerticalAlignment="Top" Width="131" Height="35" SelectionChanged="ComboBox_SelectionChanged_1" FontSize="18"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="576" Height="60" FontSize="24" RenderTransformOrigin="0.5,0.5" Margin="90,303,0,0" FontFamily="Arial Rounded MT Bold" Foreground="White"><Run Text="Starting date of semester is set to be &#x9;       of :"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+        <ComboBox x:Name="cb2" HorizontalAlignment="Left" Margin="484,305,0,0" VerticalAlignment="Top" Width="131" Height="35" SelectionChanged="ComboBox_SelectionChanged_1" FontSize="18" BorderBrush="White">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFE4DEDE" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
         <TextBlock x:Name="error_box" HorizontalAlignment="Center" Margin="0,384,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="780" Height="90" FontSize="24"/>
-        <CheckBox x:Name="black" Content="Black numbers on icons tray" HorizontalAlignment="Left" Margin="484,273,0,0" VerticalAlignment="Top" Height="32" Width="240" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" FontSize="16" Opacity="0.995"/>
+        <CheckBox x:Name="black" Content="Black numbers on icons tray" HorizontalAlignment="Left" Margin="484,273,0,0" VerticalAlignment="Top" Height="32" Width="240" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" FontSize="16" Opacity="0.995" FontFamily="Arial Rounded MT Bold" Foreground="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="90,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="648" Text="University Current Week Indicator" Height="92" FontSize="36" FontFamily="Arial Rounded MT Bold" Foreground="White"/>
     </Grid>
 </Window>

@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="SelectedInt" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="SelectedMonth" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">December</Value>
     </Setting>
     <Setting Name="SelectedMonth_int" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="weeksPassed" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="isblack" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
